@@ -475,7 +475,7 @@ public class App extends JFrame {
        IntOrd.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               complete.setEnabled(false);
+               complete2.setEnabled(false);
                lbl4.setText("Стоимость заказа: 0 рублей");
                select = "Интернет-заказ";
                pnl.setVisible(true);
