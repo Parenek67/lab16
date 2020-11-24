@@ -7,6 +7,7 @@ public final class Adress {
     final int buildingNumber;
     final char buildingLetter;
     final int apartmentNumber;
+    final int cost;
     public String getCityName(){
         return cityName;
     }
@@ -25,13 +26,14 @@ public final class Adress {
     public char getBuildingLetter() {
         return buildingLetter;
     }
-    public Adress(String cityName, int zipCode, String streetName, int buildingNumber, char buildingLetter, int apartmentNumber){
+    public Adress(String cityName, int zipCode, String streetName, int buildingNumber, char buildingLetter, int apartmentNumber, int cost){
     this.cityName = cityName;
     this.zipCode = zipCode;
     this.streetName = streetName;
     this.buildingNumber = buildingNumber;
     this.buildingLetter = buildingLetter;
     this.apartmentNumber = apartmentNumber;
+    this.cost = cost;
     }
 }
 

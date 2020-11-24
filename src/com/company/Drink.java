@@ -29,5 +29,8 @@ public final class Drink extends MenuItem implements Alcoholable {
     public double getAlcoholVol() {
         return alcoholVol;
     }
+    public DrinkTypeEnum getType(){
+        return type;
+    }
 }
 

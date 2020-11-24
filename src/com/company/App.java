@@ -13,6 +13,7 @@ import java.util.Objects;
 
 public class App extends JFrame {
    String select = "";
+   int count = 0;
    TableOrder[] to = new TableOrder[10];
    TableOrdersManager tom = new TableOrdersManager();
    InternetOrdersManager iom = new InternetOrdersManager();
@@ -309,29 +310,44 @@ public class App extends JFrame {
            @Override
            public void actionPerformed(ActionEvent e) {
                boolean b = true;
+               boolean age = false;
                for(int i = 0;i<9;i++){
                    if(adress_fld[i].getText().equals(""))
                         b = false;
                }
+               for(MenuItem it: list.get(list.size()-1).getItems()){
+                   if(it instanceof Drink ){
+                       Drink dr = (Drink) it;
+                       System.out.println(dr.getType());
+                       if(!dr.isAlcoholDrink(dr.getType())) {
+                           age = true;
+                           System.out.println(age);
+                       }
+                   }
+               }
                if(b) {
-                   Adress adr = new Adress(adress_fld[3].getText(), Integer.parseInt(adress_fld[4].getText()),
-                           adress_fld[5].getText(), Integer.parseInt(adress_fld[6].getText()), adress_fld[7].getText().charAt(0),
-                           Integer.parseInt(adress_fld[8].getText()));
-                   list.get(list.size()-1).setCustomer(new Customer(adress_fld[0].getText(), adress_fld[1].getText(),Integer.parseInt(adress_fld[2].getText()), adr));
-                   JOptionPane.showMessageDialog(null,"Ваш заказ принят!","заказ", 1);
-                   list.get(list.size()-1).setAdr("Ул. " + adr.getStreetName() + ", д. "
-                           + adr.getBuildingNumber() + adr.getBuildingLetter() + ", кв. " + adr.getApartmentNumber());
-                   dialog.setVisible(false);
-                   dialog.dispose();
-                   your_order.setText("Ваш заказ: ");
-                   del.removeAllItems();
-                   iom.add(list.get(list.size()-1));
-                   for(Order ord: iom.getOrders())
-                       if(ord != null)
-                           System.out.println(Arrays.toString(ord.ItemsNames()));
-                   pnl.removeAll();
-                   pnl.revalidate();
-                   pnl.repaint();
+                   if((age & Integer.parseInt(adress_fld[2].getText())>17) || !age) {
+                       Adress adr = new Adress(adress_fld[3].getText(), Integer.parseInt(adress_fld[4].getText()),
+                               adress_fld[5].getText(), Integer.parseInt(adress_fld[6].getText()), adress_fld[7].getText().charAt(0),
+                               Integer.parseInt(adress_fld[8].getText()), count);
+                       count++;
+                       list.get(list.size() - 1).setAdr("Ул. " + adr.getStreetName() + ", д. "
+                               + adr.getBuildingNumber() + adr.getBuildingLetter() + ", кв. " + adr.getApartmentNumber()+" ,# "+ count);
+                       list.get(list.size() - 1).setCustomer(new Customer(adress_fld[0].getText(), adress_fld[1].getText(), Integer.parseInt(adress_fld[2].getText()), adr));
+                       JOptionPane.showMessageDialog(null, "Ваш заказ принят!", "заказ", 1);
+                       dialog.setVisible(false);
+                       dialog.dispose();
+                       your_order.setText("Ваш заказ: ");
+                       del.removeAllItems();
+                       iom.add(list.get(list.size() - 1));
+                       for (Order ord : iom.getOrders())
+                           if (ord != null)
+                               System.out.println(Arrays.toString(ord.ItemsNames()));
+                       pnl.removeAll();
+                       pnl.revalidate();
+                       pnl.repaint();
+                   }
+                   else JOptionPane.showMessageDialog(null,"Вам нет 18!","э", 0);
                }
                else JOptionPane.showMessageDialog(null,"Введите все поля!","э", 0);
            }
